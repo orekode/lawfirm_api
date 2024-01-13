@@ -2,26 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+
 use App\Http\Requests\StoreLitigationRequest;
 use App\Http\Requests\UpdateLitigationRequest;
 use App\Models\Litigation;
+
+use App\Http\Resources\LitigationResource;
 
 class LitigationController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        $filters =  $this->proccessFilters($request);
+
+        return LitigationResource::collection(
+            Litigation::where($filters)->paginate()
+        );
     }
 
     /**
@@ -29,7 +30,17 @@ class LitigationController extends Controller
      */
     public function store(StoreLitigationRequest $request)
     {
-        //
+        $image = $request->file('image')->store('images/litigation');
+        $cover_image = $request->file('cover_image')->store('images/litigation/cover');
+
+        // return $request->all();
+        $litigation = Litigation::create([
+            ...$request->all(),
+            'image' => $image,
+            'cover_image' => $cover_image,
+        ]);
+
+        return $litigation;
     }
 
     /**
@@ -40,13 +51,6 @@ class LitigationController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Litigation $litigation)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -61,6 +65,6 @@ class LitigationController extends Controller
      */
     public function destroy(Litigation $litigation)
     {
-        //
+        return $litigation->delete();
     }
 }

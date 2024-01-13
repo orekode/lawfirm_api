@@ -11,7 +11,7 @@ class StoreLitigationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,10 @@ class StoreLitigationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title'       => ['required', 'unique:litigations,title'],
+            'description' => ['required'],
+            'image'       => ['required', 'image'],
+            'cover_image' => ['required', 'image'],
         ];
     }
 }

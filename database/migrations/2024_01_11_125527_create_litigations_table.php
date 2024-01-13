@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('litigations', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
+            $table->longText('description');
+            $table->string('image');
+            $table->string('cover_image');
             $table->timestamps();
         });
     }
