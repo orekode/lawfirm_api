@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Http\Requests\StoreLitigationRequest;
 use App\Http\Requests\UpdateLitigationRequest;
 use App\Models\Litigation;
@@ -48,7 +47,7 @@ class LitigationController extends Controller
      */
     public function show(Litigation $litigation)
     {
-        //
+        return new LitigationResource($litigation);
     }
 
 
@@ -57,7 +56,24 @@ class LitigationController extends Controller
      */
     public function update(UpdateLitigationRequest $request, Litigation $litigation)
     {
-        //
+        $image = $litigation->image;
+        $cover_image = $litigation->cover_image;
+
+        if(isset($request->image))             
+            $image = $request->file('image')->store('images/litigation');
+
+        if(isset($request->cover_image)) 
+            $cover_image = $request->file('cover_image')->store('images/litigation/cover');
+
+        $litigation->update([
+            'title'       => $request->title,
+            'description' => $request->description,
+            'description' => $request->description,
+            'cover_image' => $cover_image,
+            'image'       => $image,
+        ]);
+
+        return $litigation;
     }
 
     /**

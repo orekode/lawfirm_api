@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UpdateLitigationRequest extends FormRequest
+class UpdateReviewRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,9 +23,10 @@ class UpdateLitigationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => [Rule::unique('litigations')->ignore($this->litigation->id)],
-            'image' => ['image'],
-            'cover_image' => ['image'],
+            "name"    => [Rule::unique('reviews')->ignore($this->id)],
+            "stars"   => ['numeric'],
+            "review"  => [''],
+            "image"   => ['image']
         ];
     }
 }
