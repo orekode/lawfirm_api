@@ -24,4 +24,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::apiResources([
     'litigation' => LitigationController::class,
     'reviews'    => ReviewController::class,
+    'lawyers'    => LawyerController::class,
 ]);
