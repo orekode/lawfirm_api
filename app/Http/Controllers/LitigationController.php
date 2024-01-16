@@ -68,7 +68,6 @@ class LitigationController extends Controller
         $litigation->update([
             'title'       => $request->title,
             'description' => $request->description,
-            'description' => $request->description,
             'cover_image' => $cover_image,
             'image'       => $image,
         ]);
