@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class BlogResource extends JsonResource
+class MessageResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -20,9 +20,6 @@ class BlogResource extends JsonResource
             $response['created_at'], 
             $response['updated_at'],
         );
-
-        $response['image'] = env('APP_URL') . '/' . $response['image'];
-        $response['cover_image'] = env('APP_URL') . '/' . $response['cover_image'];
 
         return $response;
     }

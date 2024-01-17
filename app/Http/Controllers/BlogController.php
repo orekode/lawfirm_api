@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\request;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreBlogRequest;
 use App\Http\Requests\UpdateBlogRequest;
 use App\Models\Blog;
+
+use App\Http\Resources\BlogResource;
 
 class BlogController extends Controller
 {
