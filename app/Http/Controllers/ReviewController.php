@@ -20,7 +20,7 @@ class ReviewController extends Controller
         $filters =  $this->proccessFilters($request);
 
         return ReviewResource::collection(
-            Review::where($filters)->paginate()
+            Review::where($filters)->orderBy('created_at', 'desc')->paginate()
         );
     }
 

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('image');
             $table->string('title');
             $table->string('button');
-            $table->string('link');
+            $table->string('link')->default("https://elthedlegal.com/contact");
             $table->timestamps();
         });
     }

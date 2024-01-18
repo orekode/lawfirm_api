@@ -24,8 +24,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::apiResources([
     'litigation' => LitigationController::class,
     'categories' => CategoryController::class,
+    'settings'   => SettingController::class,
     'messages'   => MessageController::class,
     'reviews'    => ReviewController::class,
     'lawyers'    => LawyerController::class,
+    'slides'     => SlideController::class,
     'blog'       => BlogController::class,
 ]);
+
+Route::get('/relatedPosts/{blog}', [BlogController::class, 'related']);

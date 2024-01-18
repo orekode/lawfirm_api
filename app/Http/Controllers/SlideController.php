@@ -40,7 +40,7 @@ class SlideController extends Controller
      */
     public function show(Slide $slide)
     {
-        return $slide;
+        return new SlideResource( $slide );
     }
 
     /**
@@ -53,7 +53,7 @@ class SlideController extends Controller
         if(isset($request->image)) 
             $image = $request->file('image')->store('images/slides');
         
-        return Slide::update([
+        return $slide->update([
             ...$request->all(),
             'image' => $image,
         ]);

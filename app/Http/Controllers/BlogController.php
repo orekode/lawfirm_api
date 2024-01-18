@@ -19,7 +19,16 @@ class BlogController extends Controller
         $filters =  $this->proccessFilters($request);
 
         return BlogResource::collection(
-            Blog::where($filters)->paginate()
+            Blog::where($filters)->orderBy('created_at', 'desc')->paginate()
+        );
+    }
+
+    public function related(Blog $blog) {
+
+        return BlogResource::collection(
+            Blog::where('category_id', $blog->category_id)
+                    ->where('id', '!=', $blog->id)->orderBy('created_at', 'desc')
+                    ->paginate()
         );
     }
 

@@ -20,7 +20,7 @@ class LitigationController extends Controller
         $filters =  $this->proccessFilters($request);
 
         return LitigationResource::collection(
-            Litigation::where($filters)->paginate()
+            Litigation::where($filters)->orderBy('created_at', 'desc')->paginate()
         );
     }
 

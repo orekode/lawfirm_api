@@ -11,7 +11,7 @@ class UpdateSettingRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,15 @@ class UpdateSettingRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'digital_address'   => ['image'],
+            'image'             => ['image'],
+            'email'             => ['required', 'email'],
+            'tel_number'        => ['required'],
+            'mob_number'        => ['required'],
+            'twitter'           => ['required', 'url'],
+            'instagram'         => ['required', 'url'],
+            'facebook'          => ['required', 'url'],
+            'physical_address'  => ['required'],
         ];
     }
 }

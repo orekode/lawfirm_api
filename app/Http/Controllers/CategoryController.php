@@ -19,7 +19,7 @@ class CategoryController extends Controller
         $filters =  $this->proccessFilters($request);
 
         return CategoryResource::collection(
-            Category::where($filters)->paginate()
+            Category::where($filters)->orderBy('created_at', 'desc')->paginate()
         );
     }
 

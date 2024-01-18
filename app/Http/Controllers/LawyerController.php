@@ -20,7 +20,7 @@ class LawyerController extends Controller
         $filters = $this->proccessFilters($request);
 
         return LawyerResource::collection(
-            Lawyer::where($filters)->paginate()
+            Lawyer::where($filters)->orderBy('created_at', 'desc')->paginate()
         );
     }
 

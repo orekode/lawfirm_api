@@ -18,7 +18,7 @@ class MessageController extends Controller
         $filters = $this->proccessFilters($request);
 
         return MessageResource::collection(
-            Message::where($filters)->paginate()
+            Message::where($filters)->orderBy('created_at', 'desc')->paginate()
         );
     }
 
