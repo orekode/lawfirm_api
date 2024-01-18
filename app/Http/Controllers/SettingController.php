@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StoreSettingRequest;
 use App\Http\Requests\UpdateSettingRequest;
 use App\Models\Setting;
+use App\Models\Blog;
+use App\Models\Review;
+use App\Models\Lawyer;
+use App\Models\Message;
 
 use App\Http\Resources\SettingResource;
 
@@ -21,6 +25,16 @@ class SettingController extends Controller
         return SettingResource::collection(
             Setting::where($filters)->orderBy('created_at', 'desc')->paginate()
         );
+    }
+
+    public function dashboard()
+    {
+        return [
+            "messages"  => Message::count(),
+            "posts"     => Blog::count(),
+            "reviews"   => Review::count(),
+            "lawyers"   => Lawyer::count(),
+        ];
     }
 
     /**

@@ -33,3 +33,4 @@ Route::apiResources([
 ]);
 
 Route::get('/relatedPosts/{blog}', [BlogController::class, 'related']);
+Route::get('/dashboard', [SettingController::class, 'dashboard']);
