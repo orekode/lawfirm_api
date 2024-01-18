@@ -2,18 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreSlideRequest;
 use App\Http\Requests\UpdateSlideRequest;
 use App\Models\Slide;
+use App\Http\Resources\SlideResource;
 
 class SlideController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $filters = $this->proccessFilters($request);
+
+        return SlideResource::collection(
+            Slide::where($filters)->paginate()
+        );
     }
 
     /**
@@ -21,7 +27,12 @@ class SlideController extends Controller
      */
     public function store(StoreSlideRequest $request)
     {
-        //
+        $image = $request->file('image')->store('images/slides');
+
+        return Slide::create([
+            ...$request->all(),
+            'image' => $image,
+        ]);
     }
 
     /**
@@ -29,7 +40,7 @@ class SlideController extends Controller
      */
     public function show(Slide $slide)
     {
-        //
+        return $slide;
     }
 
     /**
@@ -37,7 +48,15 @@ class SlideController extends Controller
      */
     public function update(UpdateSlideRequest $request, Slide $slide)
     {
-        //
+        $image = $slide->image;
+
+        if(isset($request->image)) 
+            $image = $request->file('image')->store('images/slides');
+        
+        return Slide::update([
+            ...$request->all(),
+            'image' => $image,
+        ]);
     }
 
     /**
@@ -45,6 +64,6 @@ class SlideController extends Controller
      */
     public function destroy(Slide $slide)
     {
-        //
+        $slide->delete();
     }
 }

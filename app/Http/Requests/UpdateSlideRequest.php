@@ -22,7 +22,8 @@ class UpdateSlideRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => [Rule::unique('slides')->ignore($this->slide->id)],
+            'image' => ['image'],
         ];
     }
 }

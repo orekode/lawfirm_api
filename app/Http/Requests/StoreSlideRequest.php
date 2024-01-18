@@ -22,7 +22,8 @@ class StoreSlideRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title'       => ['required', 'unique:litigations,title'],
+            'image'       => ['required', 'image'],
         ];
     }
 }
